@@ -1,0 +1,1801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Católico - Músicas, Salmos e Rezas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a472a;
+            --secondary-color: #d4af37;
+            --tertiary-color: #8b6f47;
+            --light-bg: #f5f3f0;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --border-color: #e0d5c7;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color) 0%, #0d2818 100%);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-lg);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary-color);
+            background-color: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* CONTAINER */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* SECTIONS */
+        .section {
+            display: none;
+            padding: 3rem 0;
+            min-height: 80vh;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .subheading {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            text-align: center;
+            padding: 3rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-box h3 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            color: var(--text-light);
+        }
+
+        /* SEARCH BOX */
+        .search-box {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 100%;
+            max-width: 400px;
+            padding: 0.8rem 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        /* CARDS GRID */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .card audio {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--tertiary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-small:hover {
+            background-color: #e6c75e;
+        }
+
+        .btn-filter {
+            background-color: var(--light-bg);
+            color: var(--primary-color);
+            border: 2px solid var(--secondary-color);
+            padding: 0.6rem 1.2rem;
+        }
+
+        .btn-filter:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-remover {
+            background-color: #d32f2f;
+            color: white;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .btn-remover:hover {
+            background-color: #b71c1c;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        /* ACCORDION */
+        .accordion {
+            margin: 2rem 0;
+        }
+
+        .accordion-item {
+            background: white;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .accordion-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+            color: white;
+            padding: 1.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(135deg, #0d2818 0%, #6d5635 100%);
+        }
+
+        .accordion-header::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active::after {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 2rem;
+            background: white;
+        }
+
+        .accordion-item.active .accordion-content {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .accordion-content p {
+            line-height: 1.8;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        /* REZAS */
+        .rezas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .reza-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .reza-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .reza-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .reza-texto {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .reza-texto p {
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        /* FORMS */
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* MISSAS */
+        .missas-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .list-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .missas-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .missa-item {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .missa-item:hover {
+            box-shadow: var(--shadow);
+            transform: translateX(5px);
+        }
+
+        .missa-item h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .missa-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .missa-info div {
+            padding: 0.5rem;
+        }
+
+        .missa-descricao {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .info-vazia {
+            text-align: center;
+            color: var(--text-light);
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        /* TERÇO */
+        .terco-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .step-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            border-top: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .step-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .step-box p {
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* MUSICAL DA MISSA */
+        .musica-rito {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 5px solid var(--secondary-color);
+        }
+
+        .musica-rito h4 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .musica-rito-descricao {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        .musicas-rito-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .musica-item {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .musica-info {
+            flex: 1;
+        }
+
+        .musica-nome {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .musica-autor {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .musica-botoes {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-usar {
+            background-color: #4caf50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-usar:hover {
+            background-color: #45a049;
+        }
+
+        .resumo-musical {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-top: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .resumo-musical h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .resumo-rito {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .resumo-rito-titulo {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .resumo-musicas {
+            padding-left: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .resumo-musica-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .botoes-exportacao {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        .footer-content p {
+            margin: 0.5rem 0;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .missas-content {
+                grid-template-columns: 1fr;
+            }
+
+            .missa-info {
+                grid-template-columns: 1fr;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rezas-container {
+                grid-template-columns: 1fr;
+            }
+
+            .terco-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                flex-direction: column;
+            }
+
+            .filter-buttons .btn {
+                width: 100%;
+            }
+
+            .musica-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .musica-botoes {
+                width: 100%;
+            }
+
+            .musica-botoes .btn-usar {
+                width: 100%;
+            }
+
+            .botoes-exportacao {
+                flex-direction: column;
+            }
+
+            .botoes-exportacao .btn {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-menu {
+                gap: 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-menu a {
+                padding: 0.3rem 0.6rem;
+            }
+
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .accordion-header {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+
+            .form-container,
+            .list-container {
+                padding: 1rem;
+            }
+        }
+
+        /* SCROLL BAR CUSTOMIZADO */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">✝️ Portal Católico</div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showSection('home'); return false;">🏠 Home</a></li>
+                <li><a href="#" onclick="showSection('musicas'); return false;">🎵 Músicas</a></li>
+                <li><a href="#" onclick="showSection('salmos'); return false;">📖 Salmos</a></li>
+                <li><a href="#" onclick="showSection('rezas'); return false;">🙏 Rezas</a></li>
+                <li><a href="#" onclick="showSection('terco'); return false;">📿 Terço</a></li>
+                <li><a href="#" onclick="showSection('musica-missa'); return false;">🎼 Música da Missa</a></li>
+                <li><a href="#" onclick="showSection('missas'); return false;">⛪ Missas</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SEÇÃO HOME -->
+    <section id="home" class="section active">
+        <div class="container">
+            <div class="hero">
+                <h1>✝️ Bem-vindo ao Portal Católico</h1>
+                <p>Um espaço dedicado à fé, música, oração e organização de celebrações</p>
+                <button class="btn btn-primary" onclick="showSection('missas')">Agendar Missa</button>
+            </div>
+
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>🎵 30+</h3>
+                    <p>Músicas Católicas</p>
+                </div>
+                <div class="stat-box">
+                    <h3>📖 50+</h3>
+                    <p>Salmos Bíblicos</p>
+                </div>
+                <div class="stat-box">
+                    <h3>🙏 20+</h3>
+                    <p>Rezas Tradicionais</p>
+                </div>
+                <div class="stat-box">
+                    <h3>⛪ 100+</h3>
+                    <p>Missas Agendadas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO MÚSICAS -->
+    <section id="musicas" class="section">
+        <div class="container">
+            <h2>🎵 Músicas Católicas</h2>
+            <p class="subheading">Coletânea de hinos e músicas sagradas</p>
+
+            <div class="search-box">
+                <input type="text" id="searchMusica" placeholder="Pesquisar música..." onkeyup="pesquisarMusica()">
+            </div>
+
+            <div class="cards-grid" id="gridMusicas">
+                <div class="card">
+                    <h3>Hino Nacional da Igreja</h3>
+                    <p>Um hino sagrado que une os católicos em oração</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-1')">❤️ Favoritar</button>
+                </div>
+
+                <div class="card">
+                    <h3>Ave Maria</h3>
+                    <p>A tradicional oração cantada para a Virgem Maria</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-2')">❤️ Favoritar</button>
+                </div>
+
+                <div class="card">
+                    <h3>Pai Nosso Cantado</h3>
+                    <p>A oração mais importante cantada em harmonia</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-3')">❤️ Favoritar</button>
+                </div>
+
+                <div class="card">
+                    <h3>Glória a Deus</h3>
+                    <p>Canção de louvor e adoração</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-4')">❤️ Favoritar</button>
+                </div>
+
+                <div class="card">
+                    <h3>Aleluia</h3>
+                    <p>Canto alegre de celebração e ressurreição</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-5')">❤️ Favoritar</button>
+                </div>
+
+                <div class="card">
+                    <h3>Jesus Cristo Senhor</h3>
+                    <p>Hino de devoção ao Senhor Jesus</p>
+                    <audio controls>
+                        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3" type="audio/mpeg">
+                        Seu navegador não suporta áudio.
+                    </audio>
+                    <button class="btn btn-small" onclick="favoritar('musica-6')">❤️ Favoritar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO SALMOS -->
+    <section id="salmos" class="section">
+        <div class="container">
+            <h2>📖 Salmos Bíblicos</h2>
+            <p class="subheading">Palavras de sabedoria e consolação</p>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)">📖 Salmo 23 - O Senhor é meu Pastor</h3>
+                    <div class="accordion-content">
+                        <p>O Senhor é meu pastor; nada me faltará. Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas. Restaura-me a alma; guia-me pelas veredas da justiça, por amor do seu nome [...]</p>
+                        <button class="btn btn-small" onclick="favoritar('salmo-23')">❤️ Favoritar</button>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)">📖 Salmo 42 - Como o Cervo Almeja</h3>
+                    <div class="accordion-content">
+                        <p>Como o cervo almeja as correntes de água, assim suspira por ti, ó Deus, a minha alma! Minha alma tem sede de Deus, do Deus vivo; quando entrarei e me apresentarei diante dele? [...]</p>
+                        <button class="btn btn-small" onclick="favoritar('salmo-42')">❤️ Favoritar</button>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)">📖 Salmo 91 - Habitação Segura</h3>
+                    <div class="accordion-content">
+                        <p>Aquele que habita no esconderijo do Altíssimo, à sombra do Onipotente descansará. Direi ao Senhor: Tu és o meu refúgio e a minha fortaleza; meu Deus, em quem confio [...]</p>
+                        <button class="btn btn-small" onclick="favoritar('salmo-91')">❤️ Favoritar</button>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)">📖 Salmo 100 - Aleluia</h3>
+                    <div class="accordion-content">
+                        <p>Fazei estrondo alegre a Deus, toda a terra! Servi ao Senhor com alegria, e apresentai-vos diante dele com cânticos de júbilo. Sabei que o Senhor é Deus; foi ele que nos fez [...]</p>
+                        <button class="btn btn-small" onclick="favoritar('salmo-100')">❤️ Favoritar</button>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h3 class="accordion-header" onclick="toggleAccordion(this)">📖 Salmo 139 - Conhecimento Maravilhoso</h3>
+                    <div class="accordion-content">
+                        <p>Senhor, tu me sondas e me conheces. Tu conheces o meu assentar e o meu levantar; de longe entendes o meu pensamento. Cercas o meu andar e o meu repouso, e conheces todos os meus caminhos [...]</p>
+                        <button class="btn btn-small" onclick="favoritar('salmo-139')">❤️ Favoritar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO REZAS -->
+    <section id="rezas" class="section">
+        <div class="container">
+            <h2>🙏 Rezas Tradicionais Católicas</h2>
+            <p class="subheading">As orações mais sagradas da fé católica</p>
+
+            <div class="rezas-container">
+                <div class="reza-box">
+                    <h3>🙏 Pai Nosso</h3>
+                    <div class="reza-texto">
+                        <p>"Pai nosso que estais no céu, santificado seja o vosso nome, venha a nós o vosso reino, seja feita a vossa vontade assim na terra como no céu. O pão nosso de cada dia nos dai hoje [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-painosso')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Ave Maria</h3>
+                    <div class="reza-texto">
+                        <p>"Ave, Maria! Cheia de graça, o Senhor é convosco; bendita sois vós entre as mulheres, bendito é o fruto do vosso ventre, Jesus. Santa Maria, Mãe de Deus, rogai por nós pecadores [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-avemaria')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Glória Patri</h3>
+                    <div class="reza-texto">
+                        <p>"Glória seja ao Pai, e ao Filho, e ao Espírito Santo. Como era no princípio, agora e sempre, por todos os séculos dos séculos. Amém."</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-gloriapatri')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Credo Apostólico</h3>
+                    <div class="reza-texto">
+                        <p>"Creio em Deus Pai todo-poderoso, Criador do céu e da terra. Creio em Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo poder do Espírito Santo, nasceu de Maria Virgem [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-credo')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Salve Rainha</h3>
+                    <div class="reza-texto">
+                        <p>"Salve, Rainha, Mãe de misericórdia, vida, doçura e esperança nossa, salve! A vós clamamos, filhos de Eva; a vós suspiramos, gemendo e chorando neste vale de lágrimas [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-salverainha')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Magnificat</h3>
+                    <div class="reza-texto">
+                        <p>"Minha alma engrandece o Senhor, e o meu espírito se alegra em Deus, meu Salvador; porque atentou na humildade da sua serva; pois eis que desde agora me chamarão bem-aventurada [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-magnificat')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Oração da Manhã</h3>
+                    <div class="reza-texto">
+                        <p>"Senhor, comeco este novo dia sob vossa proteção. Abençoai meus passos, minhas palavras e meus pensamentos. Dai-me força para enfrentar os desafios e graça para vencer as tentações. Que eu possa servir com amor e dedicação [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-manha')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Oração da Noite</h3>
+                    <div class="reza-texto">
+                        <p>"Senhor, termino este dia com gratidão pelo vosso cuidado. Perdoai os meus pecados e as minhas falhas. Concedei-me um repouso tranquilo e uma noite de paz. Preparem-me para a ressurreição de cada amanhecer [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-noite')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Oração ao Sagrado Coração</h3>
+                    <div class="reza-texto">
+                        <p>"Doce Coração de Jesus, fonte de misericórdia infinita, eu vos consagro meu coração e minha vida. Transformai-me no ardor de vosso amor. Fazei que eu viva apenas para vossa glória e para a salvação das almas [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-sagradocoracao')">❤️ Favoritar</button>
+                </div>
+
+                <div class="reza-box">
+                    <h3>🙏 Oração pelos Enfermos</h3>
+                    <div class="reza-texto">
+                        <p>"Senhor Jesus, vós que descestes do Céu para curar os enfermos, intercedemos por aqueles que sofrem. Concedei a eles força, esperança e alívio em seu sofrimento. Dai aos médicos sabedoria e compaixão. Que em vosso amor encontrem consolo [...]"</p>
+                    </div>
+                    <button class="btn btn-small" onclick="favoritar('reza-enfermos')">❤️ Favoritar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO TERÇO -->
+    <section id="terco" class="section">
+        <div class="container">
+            <h2>📿 Como Rezar o Terço - Guia Prático</h2>
+            <p class="subheading">Aprenda o passo a passo da oração mais sagrada do rosário</p>
+
+            <div class="terco-steps">
+                <div class="step-box">
+                    <h4>✝️ Passo 1: Sinal da Cruz + Credo</h4>
+                    <p>Faça o sinal da cruz e reze o Credo Apostólico. Esta é a preparação espiritual para a oração.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>🙏 Passo 2: Primeira Conta Grande</h4>
+                    <p>Na primeira conta grande, reze um Pai Nosso para a intenção do Rosário.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>💫 Passo 3: Três Contas Pequenas</h4>
+                    <p>Reze três Ave Marias (Fé, Esperança e Caridade), pedindo as virtudes à Virgem Maria.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>✨ Passo 4: Segunda Conta Grande</h4>
+                    <p>Reze um Glória Patri (Glória seja ao Pai). Esta é a preparação para a primeira dezena.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>📖 Passo 5: Meditação e Dezena</h4>
+                    <p>Escolha um mistério para meditar. Reze 10 Ave Marias enquanto medita no mistério escolhido.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>🌟 Passo 6: Glória Patri entre Dezenas</h4>
+                    <p>Após cada dezena, reze um Glória Patri antes de passar para a próxima dezena.</p>
+                </div>
+
+                <div class="step-box">
+                    <h4>🎯 Passo 7: Três Dezenas Completas</h4>
+                    <p>Continue meditando e rezando as Ave Marias para completar as três dezenas do terço. Finalize com uma Ave Maria de ação de graças.</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; box-shadow: var(--shadow);">
+                <h3 style="color: var(--primary-color); margin-bottom: 1.5rem;">📿 Os Mistérios do Rosário</h3>
+                
+                <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 5px; margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">🌸 Mistérios Gozosos (Segunda e Sábado)</h4>
+                    <p style="color: var(--text-dark); line-height: 1.8;">1. Anunciação • 2. Visitação • 3. Nascimento de Jesus • 4. Apresentação de Jesus no Templo • 5. Encontro do Menino Jesus com seus pais no Templo</p>
+                </div>
+
+                <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 5px; margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">💔 Mistérios Dolorosos (Terça e Sexta)</h4>
+                    <p style="color: var(--text-dark); line-height: 1.8;">1. Agonia de Jesus no Horto • 2. Flagelação de Jesus • 3. Coroação de Jesus com espinhos • 4. Jesus carregando a Cruz • 5. Crucifixão e morte de Jesus</p>
+                </div>
+
+                <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 5px; margin-bottom: 1rem;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">⭐ Mistérios Gloriosos (Domingo e Quarta)</h4>
+                    <p style="color: var(--text-dark); line-height: 1.8;">1. Ressurreição de Jesus • 2. Ascensão de Jesus • 3. Descida do Espírito Santo • 4. Assunção de Maria • 5. Coroação de Maria Rainha do Céu</p>
+                </div>
+
+                <div style="background: var(--light-bg); padding: 1.5rem; border-radius: 5px;">
+                    <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">💡 Mistérios Luminosos (Quinta e Opcional)</h4>
+                    <p style="color: var(--text-dark); line-height: 1.8;">1. Batismo de Jesus • 2. Milagre de Caná • 3. Anúncio do Reino de Deus • 4. Transfiguração de Jesus • 5. Instituição da Eucaristia</p>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--tertiary-color) 100%); color: white; padding: 2rem; border-radius: 10px; margin-top: 2rem; box-shadow: var(--shadow-lg);">
+                <h3 style="margin-bottom: 1rem;">💡 Dicas para uma Boa Devoção</h3>
+                <ul style="list-style-position: inside; line-height: 2;">
+                    <li>✝️ Escolha um local calmo e tranquilo para rezar</li>
+                    <li>📿 Tenha um rosário em mãos para ajudar na contagem</li>
+                    <li>🧘 Medite sinceramente nos mistérios enquanto reza</li>
+                    <li>⏰ Reze com consistência diária, mesmo que brevemente</li>
+                    <li>❤️ Ofereça suas Ave Marias pelas intenções de pessoas queridas</li>
+                    <li>🙏 Mantenha um coração aberto e receptivo à graça de Deus</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO MÚSICA DA MISSA -->
+    <section id="musica-missa" class="section">
+        <div class="container">
+            <h2>🎼 Organização Musical da Missa</h2>
+            <p class="subheading">Selecione as músicas para cada rito da celebração</p>
+
+            <!-- CANTO DE ENTRADA -->
+            <div class="musica-rito">
+                <h4>🎶 1. Canto de Entrada</h4>
+                <div class="musica-rito-descricao">
+                    Abre solemnemente a celebração, estabelecendo o clima espiritual para a Missa.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Hino Nacional da Igreja</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Entrada', 'Hino Nacional da Igreja', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Jesus Cristo Senhor</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Entrada', 'Jesus Cristo Senhor', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Vinde Celebrar</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Entrada', 'Vinde Celebrar', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GLÓRIA (KYRIE) -->
+            <div class="musica-rito">
+                <h4>🌟 2. Glória (Kyrie)</h4>
+                <div class="musica-rito-descricao">
+                    Aclamação inicial de louvor e glória a Deus. Momento de celebração e alegria.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Glória a Deus</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Glória (Kyrie)', 'Glória a Deus', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Aleluia</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Glória (Kyrie)', 'Aleluia', 'Tradicional')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ACLAMAÇÃO DO EVANGELHO -->
+            <div class="musica-rito">
+                <h4>📖 3. Aclamação do Evangelho</h4>
+                <div class="musica-rito-descricao">
+                    Preparação solene para a leitura do Evangelho. Convida à abertura do coração para a Palavra de Deus.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Aleluia (tradicional)</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Aclamação do Evangelho', 'Aleluia (tradicional)', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Palavra de Deus</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Aclamação do Evangelho', 'Palavra de Deus', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SALMO RESPONSORIAL -->
+            <div class="musica-rito">
+                <h4>🎵 4. Salmo Responsorial</h4>
+                <div class="musica-rito-descricao">
+                    Meditação musicada da Palavra durante a Liturgia. Repouso contemplativo.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Salmo 23 - O Senhor é meu Pastor</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Salmo Responsorial', 'Salmo 23 - O Senhor é meu Pastor', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Salmo 100 - Aleluia</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Salmo Responsorial', 'Salmo 100 - Aleluia', 'Tradicional')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANTO DAS OFERENDAS -->
+            <div class="musica-rito">
+                <h4>🍷 5. Canto das Oferendas</h4>
+                <div class="musica-rito-descricao">
+                    Acompanha a preparação do altar e o oferecimento dos dons. Momento de entrega pessoal.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Ave Maria</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto das Oferendas', 'Ave Maria', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Pai Nosso Cantado</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto das Oferendas', 'Pai Nosso Cantado', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Vinde à Mesa do Senhor</div>
+                            <div class="musica-autor">Autor: Padre Zezinho</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto das Oferendas', 'Vinde à Mesa do Senhor', 'Padre Zezinho')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SANTO (SANCTUS) -->
+            <div class="musica-rito">
+                <h4>⭐ 6. Santo (Sanctus)</h4>
+                <div class="musica-rito-descricao">
+                    Aclamação eucarística solene. Unem-se céu e terra em louvor ao Santo Deus.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Santo (Canção Nova)</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Santo (Sanctus)', 'Santo (Canção Nova)', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANTO DA COMUNHÃO -->
+            <div class="musica-rito">
+                <h4>🍞 7. Canto da Comunhão ⭐ (MAIS SAGRADO)</h4>
+                <div class="musica-rito-descricao">
+                    O momento mais importante da Missa. Músicas que elevam a alma ao encontro com Cristo na Eucaristia.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Vinde à Mesa do Senhor</div>
+                            <div class="musica-autor">Autor: Padre Zezinho</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto da Comunhão', 'Vinde à Mesa do Senhor', 'Padre Zezinho')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Terra Seca</div>
+                            <div class="musica-autor">Autor: Padre Zezinho</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto da Comunhão', 'Terra Seca', 'Padre Zezinho')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Pão da Vida</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto da Comunhão', 'Pão da Vida', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Corpo e Sangue de Cristo</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto da Comunhão', 'Corpo e Sangue de Cristo', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Aleluia</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto da Comunhão', 'Aleluia', 'Tradicional')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CANTO DE RECESSÃO/SAÍDA -->
+            <div class="musica-rito">
+                <h4>👣 8. Canto de Recessão/Saída</h4>
+                <div class="musica-rito-descricao">
+                    Encerramento alegre da Missa. Envia os fiéis repletos de bênçãos para servir ao mundo.
+                </div>
+                <div class="musicas-rito-list">
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Hino Nacional da Igreja</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Recessão/Saída', 'Hino Nacional da Igreja', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Jesus Cristo Senhor</div>
+                            <div class="musica-autor">Autor: Tradicional</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Recessão/Saída', 'Jesus Cristo Senhor', 'Tradicional')">✓ Usar</button>
+                    </div>
+                    <div class="musica-item">
+                        <div class="musica-info">
+                            <div class="musica-nome">Vinde Celebrar</div>
+                            <div class="musica-autor">Autor: Canção Nova</div>
+                        </div>
+                        <button class="btn-usar" onclick="adicionarMusica('Canto de Recessão/Saída', 'Vinde Celebrar', 'Canção Nova')">✓ Usar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESUMO MUSICAL -->
+            <div class="resumo-musical">
+                <h3>📋 Resumo da Organização Musical</h3>
+                <div id="resumoMusical">
+                    <p style="text-align: center; font-style: italic;">Selecione as músicas acima para visualizar o resumo aqui</p>
+                </div>
+                <div class="botoes-exportacao">
+                    <button class="btn btn-primary" onclick="exportarTxt()">💾 Exportar TXT</button>
+                    <button class="btn btn-primary" onclick="exportarJSON()">📊 Exportar JSON</button>
+                    <button class="btn btn-primary" onclick="limparSelecoes()">🔄 Limpar Seleções</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO MISSAS -->
+    <section id="missas" class="section">
+        <div class="container">
+            <h2>⛪ Organização de Missas</h2>
+            <p class="subheading">Agende e organize as celebrações</p>
+
+            <div class="missas-content">
+                <div class="form-container">
+                    <h3>Agendar Nova Missa</h3>
+                    <form id="formMissa" onsubmit="agendarMissa(event)">
+                        <div class="form-group">
+                            <label for="dataMissa">📅 Data da Missa *</label>
+                            <input type="date" id="dataMissa" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="horaMissa">🕐 Hora da Missa *</label>
+                            <input type="time" id="horaMissa" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoMissa">✝️ Tipo de Missa *</label>
+                            <select id="tipoMissa" required>
+                                <option value="">-- Selecione --</option>
+                                <option value="Missa Dominical">Missa Dominical</option>
+                                <option value="Missa de Semana">Missa de Semana</option>
+                                <option value="Missa Festiva">Missa Festiva</option>
+                                <option value="Missa de Defuntos">Missa de Defuntos</option>
+                                <option value="Missa de Primeira Comunhão">Missa de Primeira Comunhão</option>
+                                <option value="Missa de Casamento">Missa de Casamento</option>
+                                <option value="Missa de Padroeiro">Missa de Padroeiro</option>
+                                <option value="Missa Especial">Missa Especial</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="localMissa">📍 Local da Celebração *</label>
+                            <input type="text" id="localMissa" placeholder="Igreja, Capela..." required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="sacerdote">👨‍⛪ Sacerdote *</label>
+                            <input type="text" id="sacerdote" placeholder="Nome do Sacerdote" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descricaoMissa">📝 Notas (Opcional)</label>
+                            <textarea id="descricaoMissa" placeholder="Adicione informações adicionais..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">✅ Agendar Missa</button>
+                    </form>
+                </div>
+
+                <div class="list-container">
+                    <h3>📋 Missas Agendadas</h3>
+
+                    <div class="filter-buttons">
+                        <button class="btn btn-filter" onclick="exibirMissas()">📊 Todas</button>
+                        <button class="btn btn-filter" onclick="filtrarMissasPorTipo('Missa Dominical')">📅 Dominicais</button>
+                        <button class="btn btn-filter" onclick="filtrarMissasPorTipo('Missa Festiva')">🎉 Festivas</button>
+                        <button class="btn btn-filter" onclick="exportarMissas()">💾 Exportar CSV</button>
+                    </div>
+
+                    <div id="listaMissas" class="missas-list">
+                        <p class="info-vazia">Nenhuma missa agendada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2026 Portal Católico. Todos os direitos reservados. ✝️</p>
+            <p>Um espaço de fé, oração e celebração</p>
+        </div>
+    </footer>
+
+    <script>
+        // Variáveis globais
+        let organizacaoMusical = {};
+        let missasAgendadas = JSON.parse(localStorage.getItem('missasAgendadas')) || [];
+
+        // Alternar seções
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            const selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Favoritar
+        function favoritar(id) {
+            const favoritos = JSON.parse(localStorage.getItem('favoritos')) || [];
+            
+            if (favoritos.includes(id)) {
+                favoritos.splice(favoritos.indexOf(id), 1);
+                alert('❌ Removido dos favoritos!');
+            } else {
+                favoritos.push(id);
+                alert('✅ Adicionado aos favoritos!');
+            }
+            
+            localStorage.setItem('favoritos', JSON.stringify(favoritos));
+        }
+
+        // Accordion para salmos
+        function toggleAccordion(element) {
+            const parent = element.parentElement;
+            parent.classList.toggle('active');
+            element.classList.toggle('active');
+        }
+
+        // Pesquisar música
+        function pesquisarMusica() {
+            const input = document.getElementById('searchMusica').value.toLowerCase();
+            const cards = document.querySelectorAll('#gridMusicas .card');
+            
+            cards.forEach(card => {
+                const h3 = card.querySelector('h3').textContent.toLowerCase();
+                const p = card.querySelector('p').textContent.toLowerCase();
+                
+                if (h3.includes(input) || p.includes(input)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Adicionar música à organização
+        function adicionarMusica(rito, musica, autor) {
+            if (!organizacaoMusical[rito]) {
+                organizacaoMusical[rito] = [];
+            }
+            
+            organizacaoMusical[rito].push({ musica, autor });
+            atualizarResumo();
+            alert(`✅ "${musica}" adicionada ao ${rito}!`);
+        }
+
+        // Remover música
+        function removerMusica(rito, index) {
+            if (organizacaoMusical[rito]) {
+                organizacaoMusical[rito].splice(index, 1);
+                if (organizacaoMusical[rito].length === 0) {
+                    delete organizacaoMusical[rito];
+                }
+                atualizarResumo();
+            }
+        }
+
+        // Atualizar resumo
+        function atualizarResumo() {
+            const resumoDiv = document.getElementById('resumoMusical');
+            
+            if (Object.keys(organizacaoMusical).length === 0) {
+                resumoDiv.innerHTML = '<p style="text-align: center; font-style: italic;">Selecione as músicas acima para visualizar o resumo aqui</p>';
+                return;
+            }
+
+            let html = '';
+            const ritos = ['Canto de Entrada', 'Glória (Kyrie)', 'Aclamação do Evangelho', 'Salmo Responsorial', 'Canto das Oferendas', 'Santo (Sanctus)', 'Canto da Comunhão', 'Canto de Recessão/Saída'];
+            
+            ritos.forEach(rito => {
+                if (organizacaoMusical[rito]) {
+                    html += `<div class="resumo-rito">
+                                <div class="resumo-rito-titulo">${rito}</div>
+                                <div class="resumo-musicas">`;
+                    
+                    organizacaoMusical[rito].forEach((item, index) => {
+                        html += `<div class="resumo-musica-item">
+                                    <span>${item.musica} - ${item.autor}</span>
+                                    <button class="btn-remover" onclick="removerMusica('${rito}', ${index})">✕ Remover</button>
+                                </div>`;
+                    });
+                    
+                    html += `</div></div>`;
+                }
+            });
+            
+            resumoDiv.innerHTML = html;
+        }
+
+        // Exportar para TXT
+        function exportarTxt() {
+            if (Object.keys(organizacaoMusical).length === 0) {
+                alert('❌ Nenhuma música selecionada!');
+                return;
+            }
+
+            let conteudo = '📋 ORGANIZAÇÃO MUSICAL DA MISSA\n';
+            conteudo += '================================\n\n';
+            
+            const ritos = ['Canto de Entrada', 'Glória (Kyrie)', 'Aclamação do Evangelho', 'Salmo Responsorial', 'Canto das Oferendas', 'Santo (Sanctus)', 'Canto da Comunhão', 'Canto de Recessão/Saída'];
+            
+            ritos.forEach(rito => {
+                if (organizacaoMusical[rito]) {
+                    conteudo += `\n${rito}:\n`;
+                    organizacaoMusical[rito].forEach(item => {
+                        conteudo += `  • ${item.musica} (${item.autor})\n`;
+                    });
+                }
+            });
+
+            const blob = new Blob([conteudo], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'organizacao-musical-missa.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Exportar para JSON
+        function exportarJSON() {
+            if (Object.keys(organizacaoMusical).length === 0) {
+                alert('❌ Nenhuma música selecionada!');
+                return;
+            }
+
+            const blob = new Blob([JSON.stringify(organizacaoMusical, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'organizacao-musical-missa.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Limpar seleções
+        function limparSelecoes() {
+            if (confirm('Tem certeza que deseja limpar todas as seleções?')) {
+                organizacaoMusical = {};
+                atualizarResumo();
+                alert('🔄 Seleções limpas!');
+            }
+        }
+
+        // Agendar missa
+        function agendarMissa(event) {
+            event.preventDefault();
+
+            const dataMissa = document.getElementById('dataMissa').value;
+            const horaMissa = document.getElementById('horaMissa').value;
+            const localMissa = document.getElementById('localMissa').value;
+            const sacerdote = document.getElementById('sacerdote').value;
+            const tipoMissa = document.getElementById('tipoMissa').value;
+            const descricaoMissa = document.getElementById('descricaoMissa').value;
+
+            if (!dataMissa || !horaMissa || !localMissa || !sacerdote || !tipoMissa) {
+                alert('⚠️ Por favor, preencha todos os campos obrigatórios!');
+                return;
+            }
+
+            const missa = {
+                id: Date.now(),
+                data: dataMissa,
+                hora: horaMissa,
+                local: localMissa,
+                sacerdote: sacerdote,
+                tipo: tipoMissa,
+                descricao: descricaoMissa
+            };
+
+            missasAgendadas.push(missa);
+            localStorage.setItem('missasAgendadas', JSON.stringify(missasAgendadas));
+            
+            document.getElementById('formMissa').reset();
+            exibirMissas();
+            alert('✅ Missa agendada com sucesso!');
+        }
+
+        // Exibir missas
+        function exibirMissas() {
+            const listaMissas = document.getElementById('listaMissas');
+            
+            if (missasAgendadas.length === 0) {
+                listaMissas.innerHTML = '<p class="info-vazia">Nenhuma missa agendada.</p>';
+                return;
+            }
+
+            let html = '';
+            missasAgendadas.forEach(missa => {
+                const dataFormatada = new Date(missa.data).toLocaleDateString('pt-BR');
+                html += `
+                    <div class="missa-item">
+                        <h4>${missa.tipo}</h4>
+                        <div class="missa-info">
+                            <div>📅 <strong>Data:</strong> ${dataFormatada}</div>
+                            <div>🕐 <strong>Hora:</strong> ${missa.hora}</div>
+                        </div>
+                        <div class="missa-info">
+                            <div>📍 <strong>Local:</strong> ${missa.local}</div>
+                            <div>👨‍⛪ <strong>Sacerdote:</strong> ${missa.sacerdote}</div>
+                        </div>
+                        ${missa.descricao ? `<div class="missa-descricao"><strong>Notas:</strong> ${missa.descricao}</div>` : ''}
+                        <button class="btn-remover" onclick="removerMissa(${missa.id})">✕ Remover</button>
+                    </div>
+                `;
+            });
+
+            listaMissas.innerHTML = html;
+        }
+
+        // Remover missa
+        function removerMissa(id) {
+            if (confirm('Tem certeza que deseja remover esta missa?')) {
+                missasAgendadas = missasAgendadas.filter(m => m.id !== id);
+                localStorage.setItem('missasAgendadas', JSON.stringify(missasAgendadas));
+                exibirMissas();
+                alert('❌ Missa removida!');
+            }
+        }
+
+        // Filtrar missas por tipo
+        function filtrarMissasPorTipo(tipo) {
+            const listaMissas = document.getElementById('listaMissas');
+            const missasFiltradas = missasAgendadas.filter(m => m.tipo === tipo);
+
+            if (missasFiltradas.length === 0) {
+                listaMissas.innerHTML = '<p class="info-vazia">Nenhuma missa deste tipo agendada.</p>';
+                return;
+            }
+
+            let html = '';
+            missasFiltradas.forEach(missa => {
+                const dataFormatada = new Date(missa.data).toLocaleDateString('pt-BR');
+                html += `
+                    <div class="missa-item">
+                        <h4>${missa.tipo}</h4>
+                        <div class="missa-info">
+                            <div>📅 <strong>Data:</strong> ${dataFormatada}</div>
+                            <div>🕐 <strong>Hora:</strong> ${missa.hora}</div>
+                        </div>
+                        <div class="missa-info">
+                            <div>📍 <strong>Local:</strong> ${missa.local}</div>
+                            <div>👨‍⛪ <strong>Sacerdote:</strong> ${missa.sacerdote}</div>
+                        </div>
+                        ${missa.descricao ? `<div class="missa-descricao"><strong>Notas:</strong> ${missa.descricao}</div>` : ''}
+                        <button class="btn-remover" onclick="removerMissa(${missa.id})">✕ Remover</button>
+                    </div>
+                `;
+            });
+
+            listaMissas.innerHTML = html;
+        }
+
+        // Exportar missas como CSV
+        function exportarMissas() {
+            if (missasAgendadas.length === 0) {
+                alert('❌ Nenhuma missa agendada!');
+                return;
+            }
+
+            let csv = 'Data,Hora,Tipo,Local,Sacerdote,Notas\n';
+            
+            missasAgendadas.forEach(missa => {
+                const dataFormatada = new Date(missa.data).toLocaleDateString('pt-BR');
+                csv += `"${dataFormatada}","${missa.hora}","${missa.tipo}","${missa.local}","${missa.sacerdote}","${missa.descricao || ''}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'missas-agendadas.csv';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Carregar missas ao iniciar
+        window.addEventListener('load', () => {
+            exibirMissas();
+        });
+    </script>
+</body>
+</html>
