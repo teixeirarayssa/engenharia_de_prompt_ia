@@ -144,3 +144,4 @@ Desenvolver um sistema de autenticação para que os usuários possam:
 **Local:** Laboratório de Informática / Quadro Branco
 
 **Professora:** Kadidja Valéria
+**Alunas:** Rayssa e Ana Julia
